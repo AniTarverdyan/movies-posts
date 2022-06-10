@@ -2,37 +2,40 @@ import styled from "styled-components";
 
 const Main = styled.div`
 display: flex;
-
+align-items: center;
+flex-direction: column;
+margin: 20px; 
+width: 80%
 `
-
-const Input = styled.input`
+const Content = styled.div`
 display: flex;
-justify-content: center;
-margin: 20px;
-width: 400px;
-height: 20px
+justify-content: space-evenly;
+flex-wrap: wrap;
+`
+const Input = styled.div`
+display: flex;
+align-items: center
 `
 
 const Movies = styled.div`
-display: inline-block;
-position: relative;
-width: 400px;
-height: 400px;
-vertical-align: middle;
-padding: 5px;
-
+display: flex;
+align-items: center;
+justify-content: center;
+flex-direction: column;
+margin: 20px
 `
 const Title = styled.div`
-margin: 10px;
+display: flex;
+justify-content: center
 `
 
 const Image = styled.img`
-display: flex;
-justify-content: space-between;
+
+
 `
 
 const Year = styled.div`
-margin: 10px
+
 `
 
 export const Styled = {
@@ -42,4 +45,5 @@ export const Styled = {
     Title,
     Year,
     Image,
+    Content,
 }
