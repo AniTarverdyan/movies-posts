@@ -11,7 +11,7 @@ const [ movies, setMovies] = useState([]);
         .then(result => setMovies(result?.Search))
     })
     return (
-       <Styled.Main>
+       <Styled.Main> 
             <Styled.Input />
 
 
