@@ -23,6 +23,7 @@ const [ movies, setMovies] = useState([]);
                 <Styled.Image src={movie.Poster} />
                     <Styled.Year>
                     {movie.Year}
+                    {'test'}
                     </Styled.Year>
                     </Styled.Movies>
             }) }
