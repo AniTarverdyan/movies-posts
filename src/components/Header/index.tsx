@@ -5,7 +5,6 @@ const Header: FC = () => {
     return <Styled.Header>
         <Styled.Title>
             React Movie Posters
-            
         </Styled.Title>
     </Styled.Header>
 };
