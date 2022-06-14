@@ -1,53 +1,52 @@
+import { Pagination } from "@mui/material";
 import { FC, useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Styled } from "./style";
 
-const Main: FC = () => {
-    const [movies, setMovies] = useState([]);
-    const [inputValue, setInputValue] = useState('');
-    const [filterValue, setFilterValue] = useState('');
+const Main: FC = ({ movies, setMovies, filterValue }: any) => {
+    const [page, setPage] = useState(1);
+    const navigate = useNavigate();
+    const post = useLocation();
 
     useEffect(() => {
-        fetch('https://www.omdbapi.com/?apikey=2d49a8ef&s=comedy')
+        fetch(`https://www.omdbapi.com/?apikey=2d49a8ef&s=America&page=${page}`)
             .then(res => res.json())
-
             .then(result => setMovies(result?.Search))
-    });
+    }, [page]);
 
-
-    const changeInputvalue = (e) => {
-        setInputValue(e.target.value)
+    const addPage = () => {
+        setPage(page + 1)
     };
 
-    const filterMovies = () => {
+    const a = () => {
+        window.open(`/movies/post`)
+    };
 
-        setFilterValue(inputValue)
+    const goToPostsPage = () => (): void => {
+        a()
     };
 
     return (
         <Styled.Main>
-            <Styled.Input>
-                <input onChange={changeInputvalue} value={inputValue} />
-                <button onClick={filterMovies}>Search</button>
-            </Styled.Input>
             <Styled.Content>
-                {movies.filter((movie) => movie.Title.includes(filterValue))
-                .map<any>((movie) => {
-                    return <Styled.Movies>
-                        <Styled.Title>
-                            {movie.Title}
-                        </Styled.Title>
-                        <Styled.Image src={movie.Poster} />
-                        <Styled.Year>
-                            {movie.Year}
-                        </Styled.Year>
-                    </Styled.Movies>
-                })
-            }
+                {movies.filter((movie: any) => movie.Title.includes(filterValue))
+                    .map((movie: any, index: number) => {
+                        return <Styled.Movies key={Math.random()}>
+                            <Styled.Title onClick={goToPostsPage()} >
+                                {movie.Title}
+                            </Styled.Title>
+                            <Styled.Image src={movie.Poster} />
+                            <Styled.Year>
+                                {movie.Year}
+                            </Styled.Year>
+                        </Styled.Movies>
+                    })
+                }
             </Styled.Content>
-
+            <Styled.Pages>
+                <Pagination count={10} variant="outlined" color="standard" onClick={addPage} />
+            </Styled.Pages>
         </Styled.Main>
-
-
     )
 }
 export default Main;
