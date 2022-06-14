@@ -1,7 +1,17 @@
-import { FC } from "react";
+import { FC, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import { Style } from "./style";
 
 const Movie: FC = ({ movies }: any) => {
+    const { title } = useParams();
+
+    
+    useEffect(() => {
+        fetch(`https://www.omdbapi.com/?apikey=2d49a8ef&t=${title}`)
+            .then(res => res.json())
+            .then(result => console.log(result))
+    },[]);
+    console.log(title)
     return (
         <div>
             {movies.filter((movie: any) => movie.imdbID === 'tt1843866')

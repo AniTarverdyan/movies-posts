@@ -7,6 +7,7 @@ import { Styled } from './style';
 
 
 function App() {
+  
   const [movies, setMovies] = useState([]);
   const [filterValue, setFilterValue] = useState('');
   const element = <Main movies={movies} setMovies={setMovies} filterValue={filterValue} />;
@@ -15,7 +16,7 @@ function App() {
       <Header setFilterValue={setFilterValue} />
       <Routes>
         <Route path='/' element={element} />
-        <Route path='/movies/post' element={<Movie movies={movies} />} />
+        <Route path='/movies/post/:title' element={<Movie movies={movies} />} />
       </Routes>
     </Styled.Container>
   );
