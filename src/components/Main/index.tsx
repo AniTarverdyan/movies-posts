@@ -1,12 +1,11 @@
 import { Pagination } from "@mui/material";
 import { FC, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { TimerView } from "../Timer";
 import { Styled } from "./style";
 
 const Main: FC = ({ movies, setMovies, filterValue }: any) => {
     const [page, setPage] = useState(1);
-    const navigate = useNavigate();
 
     useEffect(() => {
         fetch(`https://www.omdbapi.com/?apikey=2d49a8ef&s=America&page=${page}`)
@@ -18,23 +17,23 @@ const Main: FC = ({ movies, setMovies, filterValue }: any) => {
         setPage(page + 1)
     };
 
-    const goToPostsPage = (movie) => (): void => {
-        navigate(`/movies/post/${movie.Title}`)   
-    };
+    const handleClick = (movie) => {
+        window.open(`/movies/post/${movie.Title}`);
+      };
 
     return (
         <Styled.Main>
             <Styled.Content>
                 {movies.filter((movie: any) => movie.Title.includes(filterValue))
-                    .map((movie: any, index: number) => {
+                    .map((movie: any) => {
                         return <Styled.Movies key={Math.random()}>
-                            <Styled.Title onClick={goToPostsPage(movie)} >
-                                {movie.Title}
-                            </Styled.Title>
-                            <Styled.Image src={movie.Poster} />
-                            <Styled.Year>
-                                {movie.Year}
-                            </Styled.Year>
+                                <Styled.Title onClick={() => handleClick(movie)}>
+                                    {movie.Title}
+                                </Styled.Title>
+                                <Styled.Image src={movie.Poster} />
+                                <Styled.Year>
+                                    {movie.Year}
+                                </Styled.Year>
                         </Styled.Movies>
                     })
                 }

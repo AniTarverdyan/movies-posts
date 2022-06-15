@@ -1,29 +1,53 @@
-import { FC, useEffect } from "react";
+import { FC, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { Style } from "./style";
+import { Styled } from "./style";
 
-const Movie: FC = ({ movies }: any) => {
+const Movie: FC = () => {
     const { title } = useParams();
+    const [data, setData] = useState({});
 
-    
     useEffect(() => {
         fetch(`https://www.omdbapi.com/?apikey=2d49a8ef&t=${title}`)
             .then(res => res.json())
-            .then(result => console.log(result))
-    },[]);
-    console.log(title)
+            .then(result => setData(result))
+    }, []);
+
     return (
-        <div>
-            {movies.filter((movie: any) => movie.imdbID === 'tt1843866')
-                .map((item: any) => {
-                    return <Style.MovieContent>
-                        <Style.Title>
-                            {item.Title}
-                        </Style.Title>
-                        <Style.Poster src={item.Poster} />
-                    </Style.MovieContent>
-                })}
-        </div>
+        <>
+            <Styled.Title>
+                {data.Title}
+            </Styled.Title>
+            {<Styled.Poster src={data.Poster} />}
+            <Styled.Content>
+                <Styled.Item>
+                   <Styled.Div>Year: </Styled.Div> <Styled.ItemContent>{data.Year}</Styled.ItemContent>
+                </Styled.Item>
+                <Styled.Item>
+                    Released: <Styled.ItemContent>{data.Released}</Styled.ItemContent>
+                </Styled.Item>
+                <Styled.Item>
+                    Runtime: <Styled.ItemContent>{data.Runtime}</Styled.ItemContent>
+                </Styled.Item>
+                <Styled.Item>
+                    Genre: <Styled.ItemContent>{data.Genre}</Styled.ItemContent>
+                </Styled.Item>
+                <Styled.Item>
+                    Writer: <Styled.ItemContent>{data.Writer}</Styled.ItemContent>
+                </Styled.Item>
+                <Styled.Item>
+                    Actors: <Styled.ItemContent>{data.Actors}</Styled.ItemContent>
+                </Styled.Item>
+                <Styled.Item>
+                    Language: <Styled.ItemContent>{data.Language}</Styled.ItemContent>
+                </Styled.Item>
+                <Styled.Item>
+                    Country: <Styled.ItemContent>{data.Country}</Styled.ItemContent>
+                </Styled.Item>
+                <Styled.Item>
+                    Awards: <Styled.ItemContent>{data.Awards}</Styled.ItemContent>
+                </Styled.Item>
+            </Styled.Content>
+        </>
     )
 }
 export default Movie;

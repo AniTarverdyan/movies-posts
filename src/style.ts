@@ -5,7 +5,7 @@ display: flex;
 flex-wrap: wrap;
 background-color: #edfafa;
 width: 100%;
-justify-content: center;
+justify-content: space-evenly;
 `
 
 export const Styled = {
