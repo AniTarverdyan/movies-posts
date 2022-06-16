@@ -16,6 +16,7 @@ function App() {
       <Header setFilterValue={setFilterValue} />
       <Routes>
         <Route path='/' element={element} />
+        <Route path='/page' element={element} />
         <Route path='/movies/post/:title' element={<Movie movies={movies} />} />
       </Routes>
     </Styled.Container>

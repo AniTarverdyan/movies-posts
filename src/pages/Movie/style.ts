@@ -1,22 +1,23 @@
 import styled from "styled-components";
 
 const MovieContent = styled.div`
-margin: 5px
+margin: 5px;
 `
-
 
 const Title = styled.h2`
 height: 40px;
 width: 80%;
 display: flex;
 justify-content: center;
+align-items: center;
+color: cadetBlue;
 `
 
 const Poster = styled.img`
 position: relative;
-right: 280px;
-width: 500px;
-height: 700px;
+right: 150px;
+width: 450px;
+height: 600px;
 margin-top: 80px;
 `
 
@@ -25,8 +26,8 @@ margin-top: 80px;
 `
 
 const Item = styled.div`
-margin: 20px 30px;
-padding: 20px;
+margin: 5px 30px;
+padding: 10px;
 width: 100%;
 height: auto;
 background-color: hsla(0,0%,86.7%,.151);

@@ -2,9 +2,23 @@ import { FC, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Styled } from "./style";
 
+interface DataItems {
+    Title: string;
+    Poster: string;
+    Year: string;
+    Released: string;
+    Runtime: string;
+    Genre: string;
+    Writer: string;
+    Actors: string;
+    Language: string;
+    Country: string;
+    Awards: string
+}
+
 const Movie: FC = () => {
     const { title } = useParams();
-    const [data, setData] = useState({});
+    const [data, setData] = useState<DataItems>({});
 
     useEffect(() => {
         fetch(`https://www.omdbapi.com/?apikey=2d49a8ef&t=${title}`)
@@ -20,7 +34,7 @@ const Movie: FC = () => {
             {<Styled.Poster src={data.Poster} />}
             <Styled.Content>
                 <Styled.Item>
-                   <Styled.Div>Year: </Styled.Div> <Styled.ItemContent>{data.Year}</Styled.ItemContent>
+                    <Styled.Div>Year: </Styled.Div> <Styled.ItemContent>{data.Year}</Styled.ItemContent>
                 </Styled.Item>
                 <Styled.Item>
                     Released: <Styled.ItemContent>{data.Released}</Styled.ItemContent>
