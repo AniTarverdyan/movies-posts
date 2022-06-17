@@ -4,8 +4,8 @@ const Main = styled.div`
 display: flex;
 align-items: center;
 flex-direction: column;
-margin: 20px; 
-width: 80%;
+margin: 10px; 
+width: 100%;
 `
 
 const Content = styled.div`
@@ -18,7 +18,7 @@ const Movies = styled.div`
 display: flex;
 align-items: center;
 flex-direction: column;
-margin: 40px;
+margin: 15px;
 width: 300px;
 height: 700px;
 `
@@ -26,6 +26,7 @@ height: 700px;
 const Title = styled.h2`
 display: flex;
 justify-content: center;
+align-items: center;
 margin: 20px;
 font-weight: bolder;
 font-size: 25px;
@@ -40,10 +41,12 @@ color: cadetBlue;
 
 const Image = styled.img`
 border-radius: 2%;
+height: 500px;
 `
 
 const Year = styled.div`
 margin: 10px;
+align-items: center;
 `
 
 const Pages = styled.div`

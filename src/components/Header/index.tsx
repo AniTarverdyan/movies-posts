@@ -13,8 +13,8 @@ import SearchIcon from '@mui/icons-material/Search';
 const Header: FC = ({ setFilterValue }) => {
     const [inputValue, setInputValue] = useState('');
     const currentPage = useLocation();
-
-    const shouldRenderSearchInput = currentPage.pathname === '/';
+console.log(currentPage)
+    const shouldRenderSearchInput = currentPage.pathname === '/' || currentPage.pathname === '/:page' ;
 
     // const goToHomePage = () => {
     //     window.location.reload(false);
