@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import Header from './components/Header';
 import Main, { IMainProps } from './components/Main';
@@ -7,7 +7,7 @@ import { Styled } from './style';
 
 
 function App() {
-  
+
   const [movies, setMovies] = useState<IMainProps>([]);
   const [filterValue, setFilterValue] = useState('');
   const element = <Main movies={movies} setMovies={setMovies} filterValue={filterValue} />;

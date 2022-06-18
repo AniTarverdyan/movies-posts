@@ -1,12 +1,8 @@
 import { Button, Pagination, Tooltip } from "@mui/material";
-import { log } from "console";
 import { FC, useEffect, useState } from "react";
 import { NavLink, useParams } from "react-router-dom";
-import { DataItems } from "../../pages/Movie";
-import store from "../../store";
 import { TimerView } from "../Timer";
 import { Styled } from "./style";
-import { observer } from 'mobx-react';
 
 export interface IMainProps {
     movies: [{
@@ -34,10 +30,10 @@ const Main: FC<IMainProps> = ({ movies, setMovies, filterValue }: IMainProps) =>
             .then(res => res.json())
             .then(result => setMovies(result?.Search))
 
-    }, [page+1]);
+    }, [page + 1]);
 
     const addPage = () => {
-        setPage(page+1)
+        setPage(page + 1)
     };
 
 

@@ -1,11 +1,11 @@
+import SearchIcon from '@mui/icons-material/Search';
 import { Divider, IconButton, InputBase } from "@mui/material";
 import { ChangeEvent, FC, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { Styled } from "./style";
-import SearchIcon from '@mui/icons-material/Search';
 
 
- export interface IFilterValue {
+export interface IFilterValue {
     setFilterValue: (
         inputValue: string
     ) => void
@@ -13,8 +13,8 @@ import SearchIcon from '@mui/icons-material/Search';
 const Header: FC = ({ setFilterValue }) => {
     const [inputValue, setInputValue] = useState('');
     const currentPage = useLocation();
-console.log(currentPage)
-    const shouldRenderSearchInput = currentPage.pathname === '/' || currentPage.pathname === '/:page' ;
+    console.log(currentPage)
+    const shouldRenderSearchInput = currentPage.pathname === '/' || currentPage.pathname === '/:page';
 
     // const goToHomePage = () => {
     //     window.location.reload(false);
@@ -24,7 +24,7 @@ console.log(currentPage)
         setInputValue(e.target.value);
     };
 
-    const filterMovies = ()  => {
+    const filterMovies = () => {
         setFilterValue(inputValue)
     };
 

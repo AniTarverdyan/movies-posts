@@ -1,6 +1,6 @@
-import { FC } from "react";
 import { makeAutoObservable } from "mobx";
 import { observer } from "mobx-react";
+import { FC } from "react";
 
 class Timer {
     secondsPassed = 0
@@ -27,7 +27,7 @@ export const TimerViewA: FC = observer((props: any) => {
     )
 })
 export const TimerView = () => {
-    return <TimerViewA timer={myTimer}/>
+    return <TimerViewA timer={myTimer} />
 }
 
 

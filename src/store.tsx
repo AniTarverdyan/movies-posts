@@ -1,4 +1,4 @@
-import {observable} from 'mobx';
+import { observable } from 'mobx';
 
 class PageStore {
   @observable page = 1;
