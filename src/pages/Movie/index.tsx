@@ -1,64 +1,51 @@
-import { FC, useEffect, useState } from "react";
+import { CircularProgress } from "@mui/material";
+import { FC, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { store } from "../../mobx/store";
 import { Styled } from "./style";
 
-interface DataItems {
-    Title: string;
-    Poster: string;
-    Year: string;
-    Released: string;
-    Runtime: string;
-    Genre: string;
-    Writer: string;
-    Actors: string;
-    Language: string;
-    Country: string;
-    Awards: string
-}
+
 
 const Movie: FC = () => {
     const { title } = useParams();
-    const [data, setData] = useState<DataItems>({});
 
     useEffect(() => {
-        fetch(`https://www.omdbapi.com/?apikey=2d49a8ef&t=${title}`)
-            .then(res => res.json())
-            .then(result => setData(result))
+        store.getMovie(title)
     }, []);
 
     return (
-        <>
+        store.movieLoading ? <CircularProgress /> : <>
             <Styled.Title>
-                {data.Title}
+                {store.movie?.Title}
             </Styled.Title>
-            {<Styled.Poster src={data.Poster} />}
+            {<Styled.Poster src={store.movie?.Poster} />}
             <Styled.Content>
                 <Styled.Item>
-                    <Styled.Div>Year: </Styled.Div> <Styled.ItemContent>{data.Year}</Styled.ItemContent>
+                    <Styled.Div>Year: </Styled.Div> <Styled.ItemContent>{store.movie?.Year}</Styled.ItemContent>
                 </Styled.Item>
                 <Styled.Item>
-                    Released: <Styled.ItemContent>{data.Released}</Styled.ItemContent>
+                    Released: <Styled.ItemContent>{store.movie?.Released}</Styled.ItemContent>
                 </Styled.Item>
                 <Styled.Item>
-                    Runtime: <Styled.ItemContent>{data.Runtime}</Styled.ItemContent>
+                    Runtime: <Styled.ItemContent>{store.movie?.Runtime}</Styled.ItemContent>
                 </Styled.Item>
                 <Styled.Item>
-                    Genre: <Styled.ItemContent>{data.Genre}</Styled.ItemContent>
+                    Genre: <Styled.ItemContent>{store.movie?.Genre}</Styled.ItemContent>
                 </Styled.Item>
                 <Styled.Item>
-                    Writer: <Styled.ItemContent>{data.Writer}</Styled.ItemContent>
+                    Writer: <Styled.ItemContent>{store.movie?.Writer}</Styled.ItemContent>
                 </Styled.Item>
                 <Styled.Item>
-                    Actors: <Styled.ItemContent>{data.Actors}</Styled.ItemContent>
+                    Actors: <Styled.ItemContent>{store.movie?.Actors}</Styled.ItemContent>
                 </Styled.Item>
                 <Styled.Item>
-                    Language: <Styled.ItemContent>{data.Language}</Styled.ItemContent>
+                    Language: <Styled.ItemContent>{store.movie?.Language}</Styled.ItemContent>
                 </Styled.Item>
                 <Styled.Item>
-                    Country: <Styled.ItemContent>{data.Country}</Styled.ItemContent>
+                    Country: <Styled.ItemContent>{store.movie?.Country}</Styled.ItemContent>
                 </Styled.Item>
                 <Styled.Item>
-                    Awards: <Styled.ItemContent>{data.Awards}</Styled.ItemContent>
+                    Awards: <Styled.ItemContent>{store.movie?.Awards}</Styled.ItemContent>
                 </Styled.Item>
             </Styled.Content>
         </>

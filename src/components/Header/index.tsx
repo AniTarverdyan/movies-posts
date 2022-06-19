@@ -1,24 +1,21 @@
 import SearchIcon from '@mui/icons-material/Search';
 import { Divider, IconButton, InputBase } from "@mui/material";
 import { ChangeEvent, FC, useState } from "react";
-import { useLocation } from "react-router-dom";
-import { Styled } from "./style";
+import { useNavigate } from 'react-router-dom';
+import Styled from "./style";
 
 
 export interface IFilterValue {
-    setFilterValue: (
-        inputValue: string
-    ) => void
+    setFilterValue: (inputValue: string) => void,
+    showSearchField: boolean
 }
-const Header: FC = ({ setFilterValue }) => {
+const Header: FC<IFilterValue> = ({ setFilterValue, showSearchField }) => {
     const [inputValue, setInputValue] = useState('');
-    const currentPage = useLocation();
-    console.log(currentPage)
-    const shouldRenderSearchInput = currentPage.pathname === '/' || currentPage.pathname === '/:page';
+    const navigate = useNavigate()
 
-    // const goToHomePage = () => {
-    //     window.location.reload(false);
-    // }
+    const goToHomePage = () => {
+        navigate('/')
+    }
 
     const changeInputvalue = (e: ChangeEvent<HTMLInputElement>) => {
         setInputValue(e.target.value);
@@ -28,12 +25,11 @@ const Header: FC = ({ setFilterValue }) => {
         setFilterValue(inputValue)
     };
 
-
     return <Styled.Header>
-        <Styled.Title>
+        <Styled.Title onClick={goToHomePage}>
             React Movie Posters
         </Styled.Title>
-        {shouldRenderSearchInput && (
+        {showSearchField ? (
             <div style={{ display: 'flex', justifyContent: 'flex-end', flex: 1 }}>
                 <InputBase
                     placeholder="Search"
@@ -51,7 +47,9 @@ const Header: FC = ({ setFilterValue }) => {
                 </IconButton>
                 <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
             </div>
-        )}
+        ) : ''
+
+        }
     </Styled.Header>
 };
 export default Header;

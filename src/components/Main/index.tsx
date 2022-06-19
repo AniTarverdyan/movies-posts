@@ -1,51 +1,40 @@
-import { Button, Pagination, Tooltip } from "@mui/material";
-import { FC, useEffect, useState } from "react";
-import { NavLink, useParams } from "react-router-dom";
-import { TimerView } from "../Timer";
+import { Button, CircularProgress, Pagination, Tooltip } from "@mui/material";
+import { observer } from "mobx-react";
+import { FC, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { IMovieItem, store } from "../../mobx/store";
 import { Styled } from "./style";
 
 export interface IMainProps {
-    movies: [{
-        Title: string,
-        Year: string
-    }];
-    setMovies: (movies: []) => void;
-    filterValue: string;
+    filterValue?: string;
+    setShowSearchField: (showSearchField: boolean) => void
 };
 
-interface IMovie {
-    movie: {
-        Title: string
-    }
-}
-
-
-const Main: FC<IMainProps> = ({ movies, setMovies, filterValue }: IMainProps) => {
-    const [page, setPage] = useState(1)
-    const { a } = useParams();
-    console.log(a)
+const Main: FC<IMainProps> = ({ filterValue, setShowSearchField }: IMainProps) => {
+    const navigate = useNavigate();
+    const params = useParams();
+    const page = params.page ? +params.page : 1
 
     useEffect(() => {
-        fetch(`https://www.omdbapi.com/?apikey=2d49a8ef&s=America&page=${page}&t=series`)
-            .then(res => res.json())
-            .then(result => setMovies(result?.Search))
+        store.getMovies(page);
+    }, [page]);
 
-    }, [page + 1]);
+    useEffect(() => {
+        setShowSearchField(true)
+    }, []);
 
-    const addPage = () => {
-        setPage(page + 1)
+    const onPageChange = (event: React.ChangeEvent<unknown>, value: number) => {
+        navigate(`/${value}`)
     };
 
-
-    const handleClick = (movie: IMovie) => {
+    const handleClick = (movie: IMovieItem) => {
         window.open(`/movies/post/${movie.Title}`);
-
     };
 
-    return (
+    return store.moviesLoading ? <CircularProgress /> : (
         <Styled.Main>
             <Styled.Content>
-                {movies.filter((movie: IMovie) => movie.Title.includes<IMovie>(filterValue))
+                {store.movies.filter((movie: IMovieItem) => movie.Title.includes(filterValue ? filterValue : ''))
                     .map((movie: any) => {
                         return <Styled.Movies key={Math.random()}>
                             <Styled.Title onClick={() => handleClick(movie)}>
@@ -62,12 +51,10 @@ const Main: FC<IMainProps> = ({ movies, setMovies, filterValue }: IMainProps) =>
                 }
             </Styled.Content>
             <Styled.Pages>
-                <NavLink to={`/${page}`}>
-                    <Pagination count={10} variant="outlined" color="standard" onClick={addPage} />
-                </NavLink>
+                <Pagination count={10} variant="outlined" color="standard" page={page} onChange={onPageChange} />
             </Styled.Pages>
-            <TimerView />
         </Styled.Main>
-    )
+    );
 }
-export default Main;
+
+export default observer(Main);

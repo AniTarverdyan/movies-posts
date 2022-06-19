@@ -12,10 +12,10 @@ color: currentColor;
 align-items: center;
 margin:  20px;
 cursor: pointer;
-font-weight: lighter
+font-weight: lighter;
 `
 
-export const Styled = {
+export default {
     Header,
     Title,
-}
+};
