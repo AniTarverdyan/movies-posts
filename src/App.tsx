@@ -1,14 +1,16 @@
-import React from 'react';
+import { useState } from 'react';
 import Header from './components/Header';
-import Main from './components/Main';
-
+import Routing from './Routing';
+import { Styled } from './style';
 
 function App() {
+  const [filterValue, setFilterValue] = useState('');
+
   return (
-    <div >
-      <Header />
-      <Main />
-    </div>
+    <Styled.Container >
+      <Header setFilterValue={setFilterValue} />
+      <Routing filterValue={filterValue} />
+    </Styled.Container>
   );
 }
 
