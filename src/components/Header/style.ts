@@ -5,6 +5,8 @@ display: flex;
 height: 80px;
 width: 100%;
 background-color: cadetBlue;
+position: fixed;
+z-index: 1;
 `
 
 const Title = styled.h2`

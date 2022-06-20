@@ -6,6 +6,7 @@ align-items: center;
 flex-direction: column;
 margin: 10px; 
 width: 100%;
+padding-top: 80px;
 `
 
 const Content = styled.div`
@@ -42,6 +43,7 @@ color: cadetBlue;
 const Image = styled.img`
 border-radius: 2%;
 height: 500px;
+max-width: 100%;
 `
 
 const Year = styled.div`

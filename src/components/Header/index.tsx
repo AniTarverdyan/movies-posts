@@ -1,20 +1,22 @@
 import SearchIcon from '@mui/icons-material/Search';
 import { Divider, IconButton, InputBase } from "@mui/material";
-import { ChangeEvent, FC, useState } from "react";
+import { ChangeEvent, FC, useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
+import { store } from '../../mobx/store';
 import Styled from "./style";
-
-
 export interface IFilterValue {
     setFilterValue: (inputValue: string) => void,
-    showSearchField: boolean
 }
-const Header: FC<IFilterValue> = ({ setFilterValue, showSearchField }) => {
+const Header: FC<IFilterValue> = ({ setFilterValue }, page) => {
     const [inputValue, setInputValue] = useState('');
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        store.getMovies(page);
+    }, [page]);
 
     const goToHomePage = () => {
-        navigate('/')
+        navigate('/');
     }
 
     const changeInputvalue = (e: ChangeEvent<HTMLInputElement>) => {
@@ -22,14 +24,14 @@ const Header: FC<IFilterValue> = ({ setFilterValue, showSearchField }) => {
     };
 
     const filterMovies = () => {
-        setFilterValue(inputValue)
+        setFilterValue(inputValue);
     };
 
     return <Styled.Header>
         <Styled.Title onClick={goToHomePage}>
             React Movie Posters
         </Styled.Title>
-        {showSearchField ? (
+        {store.showSearchField ? (
             <div style={{ display: 'flex', justifyContent: 'flex-end', flex: 1 }}>
                 <InputBase
                     placeholder="Search"
@@ -42,7 +44,7 @@ const Header: FC<IFilterValue> = ({ setFilterValue, showSearchField }) => {
                     }}
                     value={inputValue}
                 />
-                <IconButton type="submit" sx={{ p: '10px' }} aria-label="search" onClick={filterMovies()}>
+                <IconButton type="submit" sx={{ p: '10px' }} aria-label="search" onClick={filterMovies}>
                     <SearchIcon />
                 </IconButton>
                 <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />

@@ -1,4 +1,5 @@
 import { CircularProgress } from "@mui/material";
+import { observer } from "mobx-react";
 import { FC, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { store } from "../../mobx/store";
@@ -11,8 +12,7 @@ const Movie: FC = () => {
 
     useEffect(() => {
         store.getMovie(title)
-    }, []);
-
+    }, [title]);
     return (
         store.movieLoading ? <CircularProgress /> : <>
             <Styled.Title>
@@ -51,4 +51,4 @@ const Movie: FC = () => {
         </>
     )
 }
-export default Movie;
+export default observer(Movie);

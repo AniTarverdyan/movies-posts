@@ -25,6 +25,7 @@ class Store {
     moviesLoading = false;
     movie: IMovie | null = null;
     movieLoading = false;
+    showSearchField = false;
 
     constructor() {
         makeAutoObservable(this)
@@ -37,6 +38,7 @@ class Store {
             .then(result => {
                 this.movies = result?.Search;
                 this.moviesLoading = false;
+                this.showSearchField = true;
             });
     };
 
@@ -50,8 +52,4 @@ class Store {
             })
     }
 };
-
-
-
-
 export const store = new Store();

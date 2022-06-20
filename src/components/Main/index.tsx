@@ -7,10 +7,9 @@ import { Styled } from "./style";
 
 export interface IMainProps {
     filterValue?: string;
-    setShowSearchField: (showSearchField: boolean) => void
 };
 
-const Main: FC<IMainProps> = ({ filterValue, setShowSearchField }: IMainProps) => {
+const Main: FC<IMainProps> = ({ filterValue }: IMainProps) => {
     const navigate = useNavigate();
     const params = useParams();
     const page = params.page ? +params.page : 1
@@ -18,9 +17,10 @@ const Main: FC<IMainProps> = ({ filterValue, setShowSearchField }: IMainProps) =
     useEffect(() => {
         store.getMovies(page);
     }, [page]);
+    console.log(store.movies)
 
     useEffect(() => {
-        setShowSearchField(true)
+        store.showSearchField = true
     }, []);
 
     const onPageChange = (event: React.ChangeEvent<unknown>, value: number) => {
