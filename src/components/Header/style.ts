@@ -17,7 +17,14 @@ cursor: pointer;
 font-weight: lighter;
 `
 
+const Input = styled.div`
+display: flex;
+justify-content: flex-end;
+flex: 1;
+`
+
 export default {
     Header,
     Title,
+    Input
 };

@@ -15,7 +15,7 @@ justify-content: space-evenly;
 flex-wrap: wrap;
 `
 
-const Movies = styled.div`
+const Movie = styled.div`
 display: flex;
 align-items: center;
 flex-direction: column;
@@ -55,9 +55,9 @@ const Pages = styled.div`
 margin: 25px;
 `
 
-export const Styled = {
+export default {
     Main,
-    Movies,
+    Movie,
     Title,
     Year,
     Image,

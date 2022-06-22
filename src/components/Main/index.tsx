@@ -2,25 +2,22 @@ import { Button, CircularProgress, Pagination, Tooltip } from "@mui/material";
 import { observer } from "mobx-react";
 import { FC, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { IMovieItem, store } from "../../mobx/store";
-import { Styled } from "./style";
+import { IMovieItem } from "../../interface";
+import { moviesStore } from "../../mobx/moviesStore";
+import  Styled  from "./style";
+import { IMainFilterValue } from "./type";
 
-export interface IMainProps {
-    filterValue?: string;
-};
-
-const Main: FC<IMainProps> = ({ filterValue }: IMainProps) => {
+const Main: FC<IMainFilterValue> = ({ filterValue }) => {
     const navigate = useNavigate();
     const params = useParams();
     const page = params.page ? +params.page : 1
 
     useEffect(() => {
-        store.getMovies(page);
+        moviesStore.getMovies(page);
     }, [page]);
-    console.log(store.movies)
 
     useEffect(() => {
-        store.showSearchField = true
+        moviesStore.showSearchField = true
     }, []);
 
     const onPageChange = (event: React.ChangeEvent<unknown>, value: number) => {
@@ -31,12 +28,12 @@ const Main: FC<IMainProps> = ({ filterValue }: IMainProps) => {
         window.open(`/movies/post/${movie.Title}`);
     };
 
-    return store.moviesLoading ? <CircularProgress /> : (
+    return moviesStore.loading ? <CircularProgress /> : (
         <Styled.Main>
             <Styled.Content>
-                {store.movies.filter((movie: IMovieItem) => movie.Title.includes(filterValue ? filterValue : ''))
+                {moviesStore.movies.filter((movie: IMovieItem) => movie.Title.includes(filterValue ? filterValue : ''))
                     .map((movie: any) => {
-                        return <Styled.Movies key={Math.random()}>
+                        return <Styled.Movie key={Math.random()}>
                             <Styled.Title onClick={() => handleClick(movie)}>
                                 <Tooltip title={movie.Title} arrow>
                                     <Button>{movie.Title.length > 30 ? movie.Title.substring(0, 30) + '...' : movie.Title}</Button>
@@ -46,7 +43,7 @@ const Main: FC<IMainProps> = ({ filterValue }: IMainProps) => {
                             <Styled.Year>
                                 {movie.Year}
                             </Styled.Year>
-                        </Styled.Movies>
+                        </Styled.Movie>
                     })
                 }
             </Styled.Content>

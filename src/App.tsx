@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import Header from './components/Header';
-import Routing from './Routing';
+import Routing from './Routes/routing';
 import { Styled } from './style';
 
 function App() {
